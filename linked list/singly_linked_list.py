@@ -69,14 +69,13 @@ class SLinkedList:
                 nextNode = tempNode.next
                 tempNode.next = newNode
                 newNode.next = nextNode
-                # if tempNode == self.tail:
-                #     self.tail = newNode
+
                 self.len += 1
 
 
     def deleteSLL(self, location=-1): ## default delete last element, space complexity O(1)
-        if location<-1 or location>self.len:
-            raise ValueError('Location should be -1 or between 0 and len (both inclusive)')
+        if location<-1 or location>self.len-1:
+            raise ValueError('Location should be -1 or between 0 and len-1 (both inclusive)')
         if self.head is None: ## nothing to delete
             print('Empty linkedlist')
         else:
@@ -87,6 +86,8 @@ class SLinkedList:
                 else:
                     firstNode = self.head
                     self.head = firstNode.next
+                    del_val = firstNode.value
+                    firstNode.next = None
                 self.len-=1
             elif location<self.len or location==-1: ## between head and tail (inclusive) delete O(n)
                 if location==-1:
@@ -97,18 +98,29 @@ class SLinkedList:
                     
                 nextNode = tempNode.next
                 tempNode.next = nextNode.next
+                del_val = nextNode.value
 
                 if nextNode == self.tail:
                     self.tail = tempNode
                     tempNode.next = None
+                    nextNode.next = None
+                    
                 self.len -= 1
 
-    def delcompleteSLL(self): ## O(1) time and space complexities
-        self.head = None
+            return del_val
+
+    def delcompleteSLL(self): ## O(n) time and O(1) space complexities
+        ## In Java, Python and JavaScript automatic garbage collection happens, 
+        # so deleting a linked list is easy. Just need to change head & tail to null, but this is not applicable for doubly linked lists
+        ## However, complete general implementation is shown below with explicitly deleting each node
+        node = self.head
+        while node:
+            temp = node.next
+            node.next = None
+            self.head = temp
+            node = temp
+            self.len -= 1
         self.tail = None
-        self.len=0
-
-
 
 if __name__ == '__main__':
     singlyLinkedList = SLinkedList()
