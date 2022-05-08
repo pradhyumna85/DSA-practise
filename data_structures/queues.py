@@ -1,21 +1,21 @@
 from .singly_linked_list import SLinkedList
 
-class EmptyStackError(Exception):
+class EmptyQueueError(Exception):
     pass
-class StackFull(Exception):
+class QueueFull(Exception):
     pass
 
-class stack(SLinkedList):
+class queue(SLinkedList):
     def __init__(self,size=None):
-        super().__init__() ## or SLinkedList.__init__() can also be used
+        super().__init__()
         self.size = size
 
     def __repr__(self):
         if self.isEmpty():
-            return "Empty Stack"
+            return "Empty Queue"
         else:
             output = [str(item) for item in self]
-            return 'Top->'+ '-'.join(output) + '<-Bottom'
+            return 'First->'+ '<-'.join(output) + '<-Last'
 
     def isEmpty(self):
         return False if self.head else True
@@ -27,27 +27,27 @@ class stack(SLinkedList):
         else:
             return False
 
-    def Push(self,value):
+    def Enqueue(self,value):
         if self.isFull():
-            raise StackFull(f"Current stack of size={self.size} is full!")
+            raise QueueFull(f"Current queue of size={self.size} is full!")
         else:
-            super().insertSLL(value=value,location=0) ## SLinkedList.insertSLL(*args) can also be used
+            super().insertSLL(value=value,location=-1)
     
-    def Pop(self):
+    def Dequeue(self):
         if self.isEmpty():
-            raise EmptyStackError
+            raise EmptyQueueError
         else:
             del_value = super().deleteSLL(location=0)
             return del_value
 
-    def Peek(self,bottom=False):
+    def Peek(self,last=False):
         if self.isEmpty():
-            raise EmptyStackError
+            raise EmptyQueueError
         else:
-            if bottom:
+            if last:
                 return self.tail.value
             else:
                 return self.head.value
 
-    def deleteStack(self):
+    def deleteQueue(self):
         super().delcompleteSLL()

@@ -30,6 +30,7 @@ if __name__ == '__main__':
     stack_.Pop()
     stack_.Pop()
     # stack_.Pop() ## empty stack error
+    print('After popping twice:')
     print(stack_)
 
     print('pushing 20 and 30:')
