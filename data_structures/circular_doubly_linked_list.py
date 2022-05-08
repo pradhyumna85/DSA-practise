@@ -119,11 +119,13 @@ class CDLinkedList:
         else:
             if location == 0: ## O(1) S&T
                 if self.len<=1:
-                    self.head.next, self,head,prev = None, None
+                    del_val = self.head.value
+                    self.head.next, self.head.prev = None, None
                     self.head, self.tail = None, None
                 else:
                     firstNode = self.head
                     self.head = firstNode.next
+                    del_val = firstNode.value
                     firstNode.next, firstNode.prev = None, None
                     self.tail.next = self.head
                     self.head.prev = self.tail
@@ -132,7 +134,8 @@ class CDLinkedList:
 
             elif location==-1 or location==self.len-1: ## O(1) S&T
                 prevNode = self.tail.prev
-                self.tail.next,self.tail.prev =None, None
+                del_val = self.tail.value
+                self.tail.next,self.tail.prev = None, None
                 self.tail = prevNode
                 self.tail.next = self.head
                 self.head.prev = self.tail
@@ -147,10 +150,13 @@ class CDLinkedList:
                 nextNode = tempNode.next
                 tempNode.next = nextNode.next
                 tempNode.next.prev = tempNode
+                del_val = nextNode.value
                 
                 nextNode.prev, nextNode.next = None, None
 
                 self.len -= 1
+
+            return del_val
 
     def deletecompleteCDLL(self):
         if self.head is None:

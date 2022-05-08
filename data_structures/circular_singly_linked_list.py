@@ -110,10 +110,12 @@ class CSLinkedList:
         else:
             if location == 0: ## O(1) S&T
                 if self.len<=1:
+                    del_val = self.head.value
                     self.head, self.tail = None, None
                 else:
                     firstNode = self.head
                     self.head = firstNode.next
+                    del_val = firstNode.value
                     firstNode.next = None
                     self.tail.next = self.head
 
@@ -129,12 +131,15 @@ class CSLinkedList:
 
                 nextNode = tempNode.next
                 tempNode.next = nextNode.next
+                del_val = nextNode.value
 
                 if nextNode==self.tail:
                     self.tail = tempNode
                     nextNode.next = None
 
                 self.len -= 1
+            
+            return del_val
 
     def deletecompleteCSLL(self):
         if self.head is None:
