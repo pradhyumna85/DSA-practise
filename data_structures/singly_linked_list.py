@@ -12,7 +12,7 @@ class SLinkedList:
     def __iter__(self):
         node = self.head
         while node:
-            yield node
+            yield node.value
             node = node.next
 
     def traversalSLL(self): ## O(n) time and O(1) space
@@ -78,9 +78,11 @@ class SLinkedList:
             raise ValueError('Location should be -1 or between 0 and len-1 (both inclusive)')
         if self.head is None: ## nothing to delete
             print('Empty linkedlist')
+            return None
         else:
             if location==0: ## head delete O(1)
                 if self.len<=1:
+                    del_val = self.head.value
                     self.head = None
                     self.tail = None
                 else:

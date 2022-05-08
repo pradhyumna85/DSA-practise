@@ -86,6 +86,7 @@ class DLinkedList:
         
         if self.head is None: ## insert first element O(1) S&T
             print('Empty linked list')
+            return None
 
         else:
             if location==0: ## delete in the start O(1) S&T
